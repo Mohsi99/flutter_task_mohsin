@@ -11,6 +11,7 @@ import 'ui/common/app_colors.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   await setupLocator();
   runApp(const MyApp());
 }

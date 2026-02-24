@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,7 +13,6 @@ import '../../widgets/regional_plan_card.dart';
 import '../../widgets/checkout_bar.dart';
 import 'country_detail_viewmodel.dart';
 
-
 class CountryDetailView extends StackedView<CountryDetailViewModel> {
   const CountryDetailView({super.key});
 
@@ -22,52 +22,58 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     CountryDetailViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAppBar(context),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 16),
-                            _buildSearchBar(),
-                            const SizedBox(height: 8),
-                            const CountryChip(countryName: 'Turkey'),
-                            const SizedBox(height: 17),
-                            _buildFilterTabs(viewModel),
-                            const SizedBox(height: 8),
-                            Text(
-                              '${viewModel.bundleCount} Bundles Available for Turkey',
-                              style: AppTextStyles.sectionTitle,
-                            ),
-                            _buildBundleGrid(context, viewModel),
-                            const SizedBox(height: 8),
-                            _buildRegionalSection(viewModel),
-                            const SizedBox(height: 24),
-                            _buildSupportSection(),
-                            const SizedBox(height: 100),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ), // Bottom padding for cart bar
-                ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(  // 👈 Add this
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildAppBar(context),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 16),
+                              _buildSearchBar(),
+                              const SizedBox(height: 8),
+                              const CountryChip(countryName: 'Turkey'),
+                              const SizedBox(height: 17),
+                              _buildFilterTabs(viewModel),
+                              const SizedBox(height: 8),
+                              Text(
+                                '${viewModel.bundleCount} Bundles Available for Turkey',
+                                style: AppTextStyles.sectionTitle,
+                              ),
+                              _buildBundleGrid(context, viewModel),
+                              const SizedBox(height: 8),
+                              _buildRegionalSection(viewModel),
+                              const SizedBox(height: 24),
+                              _buildSupportSection(),
+                              const SizedBox(height: 100),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ), // Bottom padding for cart bar
+                  ],
+                ),
               ),
             ),
-          ),
-
-          const CheckoutBar(),
-        ],
+            const CheckoutBar(),
+          ],
+        ),
       ),
     );
   }
@@ -79,28 +85,32 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
       ),
       child: SafeArea(
         bottom: false,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back_ios_new,
-                  color: AppColors.textWhite, size: 20),
-            ),
-            Text(
-              'Turkey',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textWhite,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Row(
+
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.arrow_back_ios_new,
+                    color: AppColors.textWhite, size: 20),
               ),
-            ),
-            ImageIcon(
-              AssetImage('assets/images/Vector.png'),
-              size: 24,
-              color: Colors.white,
-            ),
-          ],
+              Text(
+                'Turkey',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textWhite,
+                ),
+              ),
+              ImageIcon(
+                AssetImage('assets/images/Vector.png'),
+                size: 24,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
       ),
     );

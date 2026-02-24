@@ -4,7 +4,6 @@ import 'package:stacked/stacked.dart';
 
 import 'startup_viewmodel.dart';
 
-/// Initial loading screen that navigates to the country detail view.
 class StartupView extends StackedView<StartupViewModel> {
   const StartupView({super.key});
 
