@@ -27,11 +27,7 @@ class CountryChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-        ImageIcon(
-          AssetImage("assets/images/TR.png"),
-          size: 24,
-
-        ),
+          Image.asset('assets/images/TR.png',height: 18,width: 24,),
           const SizedBox(width: 6),
           Text(countryName,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),

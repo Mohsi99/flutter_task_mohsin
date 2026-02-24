@@ -17,12 +17,10 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
   const CountryDetailView({super.key});
 
   @override
-  Widget builder(
-    BuildContext context,
-    CountryDetailViewModel viewModel,
-    Widget? child,
-  ) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(  // 👈 Add this
+  Widget builder(BuildContext context,
+      CountryDetailViewModel viewModel,
+      Widget? child,) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
@@ -53,7 +51,8 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
                               _buildFilterTabs(viewModel),
                               const SizedBox(height: 8),
                               Text(
-                                '${viewModel.bundleCount} Bundles Available for Turkey',
+                                '${viewModel
+                                    .bundleCount} Bundles Available for Turkey',
                                 style: AppTextStyles.sectionTitle,
                               ),
                               _buildBundleGrid(context, viewModel),
@@ -178,8 +177,8 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     );
   }
 
-  Widget _buildBundleGrid(
-      BuildContext context, CountryDetailViewModel viewModel) {
+  Widget _buildBundleGrid(BuildContext context,
+      CountryDetailViewModel viewModel) {
     final bundles = viewModel.filteredBundles;
     return Consumer<CartProvider>(
       builder: (context, cart, _) {
@@ -267,10 +266,9 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  ImageIcon(
-                    AssetImage("assets/images/logos_whatsapp-icon.png"),
-                    size: 24,
-                  ),
+                  Image.asset(
+                    'assets/images/logos_whatsapp-icon.png', height: 24,
+                    width: 24,),
                   const SizedBox(width: 4),
                   Text(
                     'Whatsapp',
