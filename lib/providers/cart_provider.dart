@@ -7,7 +7,6 @@ import '../models/regional_plan.dart';
 class CartProvider extends ChangeNotifier {
   final List<CartItem> _items = [];
 
-  /// All items currently in the cart.
   List<CartItem> get items => List.unmodifiable(_items);
 
   bool get isEmpty => _items.isEmpty;
@@ -22,9 +21,6 @@ class CartProvider extends ChangeNotifier {
   String get totalPriceText =>
       'USD ${totalPrice.toStringAsFixed(2)}';
 
-  /// ------------------------------
-  /// BUNDLE FUNCTIONS
-  /// ------------------------------
 
   bool containsBundle(BundlePlan bundle) {
     return _items.any((item) => item.bundle.id == bundle.id);
@@ -85,9 +81,7 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  /// ------------------------------
-  /// REGIONAL PLAN FUNCTIONS
-  /// ------------------------------
+
 
   bool containsRegionalPlan(RegionalPlan plan) {
     return _items.any((item) => item.bundle.id == plan.id);
@@ -117,13 +111,11 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Helper: extract number from "7 days"
   int _extractDays(String validityText) {
     final match = RegExp(r'\d+').firstMatch(validityText);
     return match != null ? int.parse(match.group(0)!) : 0;
   }
 
-  /// ------------------------------
 
   void clear() {
     _items.clear();

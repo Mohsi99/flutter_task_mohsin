@@ -5,13 +5,13 @@ class AppColors {
   AppColors._();
 
   // --- Primary Gradient (App Bar) ---
-  static const Color gradientStart = Color(0xFF4A90D9);
-  static const Color gradientEnd = Color(0xFF5AC8FA);
+  static const Color gradientStart = Color(0xFF326EE6);
+  static const Color gradientEnd = Color(0xFF4DD9AC);
 
   static const LinearGradient appBarGradient = LinearGradient(
     colors: [gradientStart, gradientEnd],
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
   );
 
   // --- Brand ---

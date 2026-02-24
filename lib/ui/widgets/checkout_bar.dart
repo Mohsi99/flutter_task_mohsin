@@ -6,9 +6,6 @@ import '../common/app_text_styles.dart';
 import '../../providers/cart_provider.dart';
 import 'cart_item_widget.dart';
 
-/// Sticky bottom bar that shows selected cart items and a checkout button.
-///
-/// Only visible when the cart has items.
 class CheckoutBar extends StatelessWidget {
   const CheckoutBar({super.key});
 
@@ -34,29 +31,44 @@ class CheckoutBar extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Cart items list
-                ...cart.items.map(
-                  (item) => CartItemWidget(
-                    cartItem: item,
-                    onIncrement: () =>
-                        cart.incrementQuantity(item.bundle.id),
-                    onDecrement: () =>
-                        cart.decrementQuantity(item.bundle.id),
-                    onRemove: () => cart.removeItem(item.bundle.id),
+
+                ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxHeight: 200,
+                  ),
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: cart.items.length,
+                      itemBuilder: (context, index) {
+                        final item = cart.items[index];
+
+                        return CartItemWidget(
+                          cartItem: item,
+                          onIncrement: () =>
+                              cart.incrementQuantity(item.bundle.id),
+                          onDecrement: () =>
+                              cart.decrementQuantity(item.bundle.id),
+                          onRemove: () =>
+                              cart.removeItem(item.bundle.id),
+                        );
+                      },
+                    ),
                   ),
                 ),
+
                 const SizedBox(height: 8),
-                // Checkout button
+
+                /// Checkout button
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  const EdgeInsets.only(left: 16, right: 16,bottom: 4, top: 4),
                   child: SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Checkout action (not implemented — UI only)
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.checkoutGreen,
                         foregroundColor: AppColors.textWhite,

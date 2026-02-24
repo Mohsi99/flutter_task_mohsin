@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-/// App-wide text style constants.
 class AppTextStyles {
   AppTextStyles._();
 
@@ -71,15 +70,15 @@ class AppTextStyles {
 
   // --- Cart ---
   static TextStyle get cartPrice => _baseStyle.copyWith(
-        fontSize: 13,
+        fontSize: 15,
         fontWeight: FontWeight.w700,
-        color: AppColors.textPrice,
+        color: Color(0xff329CFB),
       );
 
   static TextStyle get cartDescription => _baseStyle.copyWith(
-        fontSize: 11,
-        fontWeight: FontWeight.w400,
-        color: AppColors.textSecondary,
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+        color: Color(0xff667085),
       );
 
   static TextStyle get cartQuantity => _baseStyle.copyWith(
@@ -98,7 +97,7 @@ class AppTextStyles {
   static TextStyle get regionalPlanName => _baseStyle.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-      color: Color(0xff122644),
+        color: Color(0xff122644),
       );
 
   static TextStyle get regionalPlanDetail => _baseStyle.copyWith(
@@ -110,7 +109,7 @@ class AppTextStyles {
   static TextStyle get regionalPlanCountries => _baseStyle.copyWith(
         fontSize: 13,
         fontWeight: FontWeight.w700,
-    color: Color(0xff122644),
+        color: Color(0xff122644),
       );
 
   static TextStyle get regionalPlanPrice => _baseStyle.copyWith(

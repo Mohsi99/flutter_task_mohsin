@@ -1,10 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 
-// **************************************************************************
-// StackedNavigatorGenerator
-// **************************************************************************
-
-// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i4;
 import 'package:flutter/material.dart';
 import 'package:flutter_task_mohsin/ui/views/country_detail/country_detail_view.dart'

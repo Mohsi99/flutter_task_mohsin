@@ -1,4 +1,3 @@
-/// Represents a regional or global eSIM data plan.
 class RegionalPlan {
   final String id;
   final String name;
@@ -16,6 +15,5 @@ class RegionalPlan {
     required this.price,
   });
 
-  /// Human-readable price text, e.g. "USD 2.51"
   String get priceText => 'USD ${price.toStringAsFixed(2)}';
 }

@@ -5,9 +5,7 @@ import '../services/bundle_service.dart';
 import '../ui/views/country_detail/country_detail_view.dart';
 import '../ui/views/startup/startup_view.dart';
 
-/// Stacked app configuration.
-/// 
-/// Defines routes and dependency injection for the application.
+
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView, initial: true),

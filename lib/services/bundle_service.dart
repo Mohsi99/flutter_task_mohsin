@@ -1,9 +1,7 @@
 import '../models/bundle_plan.dart';
 import '../models/regional_plan.dart';
 
-/// Service that provides mock eSIM bundle data for Turkey.
 class BundleService {
-  /// Returns the list of local bundles available for Turkey.
   List<BundlePlan> getLocalBundles() {
     return const [
       // Row 1
@@ -76,7 +74,6 @@ class BundleService {
     ];
   }
 
-  /// Returns the list of regional/global plans supporting Turkey.
   List<RegionalPlan> getRegionalPlans() {
     return const [
       RegionalPlan(

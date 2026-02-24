@@ -4,10 +4,6 @@ import '../common/app_colors.dart';
 import '../common/app_text_styles.dart';
 import '../../models/cart_item.dart';
 
-/// A widget that displays a single cart item with quantity controls.
-///
-/// Shows the price, description (data/validity), quantity indicator,
-/// increment/decrement buttons, and a remove button.
 class CartItemWidget extends StatelessWidget {
   final CartItem cartItem;
   final VoidCallback onIncrement;
@@ -28,7 +24,7 @@ class CartItemWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Row(
         children: [
-          // Price and description
+          // Price + Description
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,71 +41,61 @@ class CartItemWidget extends StatelessWidget {
               ],
             ),
           ),
-          // Quantity controls
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Decrement
-              _QuantityButton(
-                icon: Icons.remove,
-                onTap: onDecrement,
+
+          // Quantity Pill Counter (Figma Accurate)
+          Container(
+            width: 86,
+            height: 28,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: const Color(0xFF122644),
+                width: 1,
               ),
-              // Quantity
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  'x${cartItem.quantity}',
-                  style: AppTextStyles.cartQuantity,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: onDecrement,
+                  child: const Icon(
+                    Icons.remove,
+                    size: 18,
+                    color: Color(0xFF122644),
+                  ),
                 ),
-              ),
-              // Increment
-              _QuantityButton(
-                icon: Icons.add,
-                onTap: onIncrement,
-              ),
-            ],
+                Text(
+                  'x${cartItem.quantity}',
+                  style: AppTextStyles.cartQuantity.copyWith(
+                    color: const Color(0xFF122644),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onIncrement,
+                  child: const Icon(
+                    Icons.add,
+                    size: 18,
+                    color: Color(0xFF122644),
+                  ),
+                ),
+              ],
+            ),
           ),
+
           const SizedBox(width: 8),
-          // Remove button
+
+          // Remove Button
           GestureDetector(
             onTap: onRemove,
             child: const Icon(
               Icons.close,
-              size: 18,
-              color: AppColors.removeIcon,
+              size: 20,
+              color: Color(0xffDB4446),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _QuantityButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const _QuantityButton({
-    required this.icon,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(
-          color: AppColors.primaryBlue.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Icon(
-          icon,
-          size: 16,
-          color: AppColors.primaryBlue,
-        ),
       ),
     );
   }

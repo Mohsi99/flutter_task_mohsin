@@ -12,10 +12,7 @@ import '../../widgets/regional_plan_card.dart';
 import '../../widgets/checkout_bar.dart';
 import 'country_detail_viewmodel.dart';
 
-/// Main screen displaying eSIM bundles for a selected country (Turkey).
-///
-/// Uses Stacked's StackedView pattern for ViewModel binding and
-/// Provider's Consumer for cart state.
+
 class CountryDetailView extends StackedView<CountryDetailViewModel> {
   const CountryDetailView({super.key});
 
@@ -29,53 +26,52 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          // Gradient App Bar
-          _buildAppBar(context),
-
-          // Scrollable content
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 12),
-                  // Search bar
-                  _buildSearchBar(),
-                  const SizedBox(height: 12),
-                  // Country chip
-                  const CountryChip(countryName: 'Turkey'),
-                  const SizedBox(height: 16),
-                  // Filter tabs
-                  _buildFilterTabs(viewModel),
-                  const SizedBox(height: 16),
-                  // Bundle count header
-                  Text(
-                    '${viewModel.bundleCount} Bundles Available for Turkey',
-                    style: AppTextStyles.sectionTitle,
-                  ),
-                  // Bundle grid
-                  _buildBundleGrid(context, viewModel),
-                  const SizedBox(height: 24),
-                  // Regional & Global Plans section
-                  _buildRegionalSection(viewModel),
-                  const SizedBox(height: 24),
-                  // Need support section
-                  _buildSupportSection(),
-                  const SizedBox(height: 100), // Bottom padding for cart bar
+                  _buildAppBar(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 16),
+                            _buildSearchBar(),
+                            const SizedBox(height: 8),
+                            const CountryChip(countryName: 'Turkey'),
+                            const SizedBox(height: 17),
+                            _buildFilterTabs(viewModel),
+                            const SizedBox(height: 8),
+                            Text(
+                              '${viewModel.bundleCount} Bundles Available for Turkey',
+                              style: AppTextStyles.sectionTitle,
+                            ),
+                            _buildBundleGrid(context, viewModel),
+                            const SizedBox(height: 8),
+                            _buildRegionalSection(viewModel),
+                            const SizedBox(height: 24),
+                            _buildSupportSection(),
+                            const SizedBox(height: 100),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ), // Bottom padding for cart bar
                 ],
               ),
             ),
           ),
 
-          // Checkout bar (only visible when cart has items)
           const CheckoutBar(),
         ],
       ),
     );
   }
 
-  /// Gradient app bar with back button, title, and cart icon.
   Widget _buildAppBar(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
@@ -83,40 +79,33 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
       ),
       child: SafeArea(
         bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.arrow_back_ios_new,
-                    color: AppColors.textWhite, size: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_back_ios_new,
+                  color: AppColors.textWhite, size: 20),
+            ),
+            Text(
+              'Turkey',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textWhite,
               ),
-              const Expanded(
-                child: Center(
-                  child: Text(
-                    'Turkey',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textWhite,
-                    ),
-                  ),
-                ),
-              ),
-              ImageIcon(
-                AssetImage('assets/images/Vector.png'),
-                size: 24,
-                color: Colors.white,
-              ),
-            ],
-          ),
+            ),
+            ImageIcon(
+              AssetImage('assets/images/Vector.png'),
+              size: 24,
+              color: Colors.white,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  /// Rounded search bar.
   Widget _buildSearchBar() {
     return SizedBox(
       width: double.infinity,
@@ -163,7 +152,6 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     );
   }
 
-  /// Row of filter tabs: All, Standard, Unlimited.
   Widget _buildFilterTabs(CountryDetailViewModel viewModel) {
     const filters = ['All', 'Standard', 'Unlimited'];
     return Row(
@@ -180,7 +168,6 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     );
   }
 
-  /// 3-column grid of bundle cards.
   Widget _buildBundleGrid(
       BuildContext context, CountryDetailViewModel viewModel) {
     final bundles = viewModel.filteredBundles;
@@ -209,7 +196,6 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     );
   }
 
-  /// Regional & Global Plans section with 2-column layout.
   Widget _buildRegionalSection(CountryDetailViewModel viewModel) {
     final plans = viewModel.regionalPlans;
     return Column(
@@ -247,7 +233,6 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
     );
   }
 
-  /// "Need support?" footer section.
   Widget _buildSupportSection() {
     return Row(
       children: [
