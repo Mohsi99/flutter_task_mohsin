@@ -1,0 +1,39 @@
+name: flutter_task_mohsin
+description: "eSIM Data Bundle Plans - Flutter Task"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Stacked Architecture
+  stacked: ^3.4.3
+  stacked_services: ^1.6.0
+
+  # State Management
+  provider: ^6.1.2
+
+  # Fonts
+  google_fonts: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+  # Stacked code generation
+  build_runner: ^2.4.13
+  stacked_generator: ^1.6.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/

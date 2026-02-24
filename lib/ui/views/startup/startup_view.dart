@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:stacked/stacked.dart';
+
+import 'startup_viewmodel.dart';
+
+/// Initial loading screen that navigates to the country detail view.
+class StartupView extends StackedView<StartupViewModel> {
+  const StartupView({super.key});
+
+  @override
+  Widget builder(
+    BuildContext context,
+    StartupViewModel viewModel,
+    Widget? child,
+  ) {
+    return const Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16),
+            Text('Loading...'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  StartupViewModel viewModelBuilder(BuildContext context) => StartupViewModel();
+
+  @override
+  void onViewModelReady(StartupViewModel viewModel) =>
+      SchedulerBinding.instance.addPostFrameCallback(
+        (_) => viewModel.runStartupLogic(),
+      );
+}
