@@ -96,27 +96,27 @@ class AppTextStyles {
 
   // --- Regional Plans ---
   static TextStyle get regionalPlanName => _baseStyle.copyWith(
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w700,
-        color: AppColors.textPrimary,
+      color: Color(0xff122644),
       );
 
   static TextStyle get regionalPlanDetail => _baseStyle.copyWith(
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         color: AppColors.textSecondary,
       );
 
   static TextStyle get regionalPlanCountries => _baseStyle.copyWith(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textSecondary,
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+    color: Color(0xff122644),
       );
 
   static TextStyle get regionalPlanPrice => _baseStyle.copyWith(
-        fontSize: 13,
+        fontSize: 16,
         fontWeight: FontWeight.w700,
-        color: AppColors.selectedPriceRed,
+        color: Color(0xff329CFB),
       );
 
   // --- Search ---

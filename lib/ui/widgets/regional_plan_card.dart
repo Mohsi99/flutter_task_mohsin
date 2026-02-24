@@ -1,89 +1,133 @@
 import 'package:flutter/material.dart';
 
+import '../../models/regional_plan.dart';
 import '../common/app_colors.dart';
 import '../common/app_text_styles.dart';
-import '../../models/regional_plan.dart';
 
-/// A card widget for displaying a regional or global eSIM plan.
-///
-/// Shows the plan name, data amount, validity, supported countries count,
-/// and price.
 class RegionalPlanCard extends StatelessWidget {
   final RegionalPlan plan;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   const RegionalPlanCard({
     super.key,
     required this.plan,
+    required this.isSelected,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.divider),
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: isSelected
+              ? const LinearGradient(
+            colors: [Color(0xFF329CFB), Color(0xFF15D59D)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
+              : null,
+          border: isSelected
+              ? null
+              : Border.all(color: AppColors.divider),
+        ),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          margin: EdgeInsets.all(isSelected ? 1.5 : 0),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.cardBackground,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: _buildContent(),
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Plan name
-          Text(
+    );
+  }
+
+  Widget _buildContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding:
+          const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+          height: 28,
+          decoration: BoxDecoration(
+            color: const Color(0xffEEF7FF),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
             plan.name,
             style: AppTextStyles.regionalPlanName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 6),
-          // Data row
-          Row(
-            children: [
-              Text('Data:', style: AppTextStyles.regionalPlanDetail),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Text(
+        ),
+        const SizedBox(height: 12),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Data:', style: AppTextStyles.regionalPlanDetail),
+                const SizedBox(height: 4),
+                Text(
                   plan.dataAmount,
-                  style: AppTextStyles.regionalPlanDetail.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyles.regionalPlanDetail
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
-              ),
-              Text('Valid for:', style: AppTextStyles.regionalPlanDetail),
-              const SizedBox(width: 4),
-              Text(
-                plan.validityText,
-                style: AppTextStyles.regionalPlanDetail.copyWith(
-                  fontWeight: FontWeight.w600,
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Valid for:',
+                    style: AppTextStyles.regionalPlanDetail),
+                const SizedBox(height: 4),
+                Text(
+                  plan.validityText,
+                  style: AppTextStyles.regionalPlanDetail
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
+              ],
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 8),
+        Divider(color: AppColors.divider),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                '${plan.supportedCountries} Supported Countries',
+                style: AppTextStyles.regionalPlanCountries,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          // Supported Countries
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '${plan.supportedCountries} Supported Countries',
-                  style: AppTextStyles.regionalPlanCountries,
-                ),
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 16,
-                color: AppColors.textSecondary,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          // Price
-          Text(
-            plan.priceText,
-            style: AppTextStyles.regionalPlanPrice,
-          ),
-        ],
-      ),
+            ),
+            const Icon(Icons.chevron_right, size: 20),
+          ],
+        ),
+
+        Divider(color: AppColors.divider),
+
+        const SizedBox(height: 8),
+
+        Text(
+          plan.priceText,
+          style: AppTextStyles.regionalPlanPrice,
+        ),
+      ],
     );
   }
 }

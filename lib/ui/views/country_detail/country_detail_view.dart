@@ -226,11 +226,21 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 1.1,
+            childAspectRatio: 0.77,
           ),
           itemCount: plans.length,
           itemBuilder: (context, index) {
-            return RegionalPlanCard(plan: plans[index]);
+            return Consumer<CartProvider>(
+              builder: (context, cart, _) {
+                final plan = plans[index];
+
+                return RegionalPlanCard(
+                  plan: plan,
+                  isSelected: cart.containsRegionalPlan(plan),
+                  onTap: () => cart.toggleRegionalPlan(plan),
+                );
+              },
+            );
           },
         ),
       ],
@@ -239,43 +249,48 @@ class CountryDetailView extends StackedView<CountryDetailViewModel> {
 
   /// "Need support?" footer section.
   Widget _buildSupportSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Need support?', style: AppTextStyles.supportTitle),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Text(
-                      'If you need help, contact us on ',
-                      style: AppTextStyles.supportSubtitle,
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Need support?',
+                  style: TextStyle(
+                    color: Color(0xff001C3E),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  )),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Text(
+                    'If you need help, contact us on ',
+                    style: TextStyle(
+                      color: Color(0xff001C3E),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Icon(Icons.chat_bubble, size: 14, color: Colors.green),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Whatsapp',
-                      style: AppTextStyles.supportSubtitle.copyWith(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  ImageIcon(
+                    AssetImage("assets/images/logos_whatsapp-icon.png"),
+                    size: 24,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Whatsapp',
+                    style: TextStyle(
+                      color: Color(0xff1EC896),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
